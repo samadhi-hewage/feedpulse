@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import { login } from '../controllers/auth.controller';
+
 const router = Router();
-// Routes added on Day 2
+router.post('/login', login);
 export default router;
