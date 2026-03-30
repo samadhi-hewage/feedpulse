@@ -9,6 +9,7 @@ export default function SubmitPage() {
     submitterName: '', submitterEmail: '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   function validate() {
     const e: Record<string, string> = {};
@@ -19,10 +20,24 @@ export default function SubmitPage() {
     return e;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const errs = validate();
-    setErrors(errs);
+    if (Object.keys(errs).length) return setErrors(errs);
+    setErrors({});
+    setStatus('loading');
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/feedback`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error('Submission failed');
+      setStatus('success');
+      setForm({ title: '', description: '', category: 'Bug', submitterName: '', submitterEmail: '' });
+    } catch {
+      setStatus('error');
+    }
   }
 
   return (
@@ -30,6 +45,17 @@ export default function SubmitPage() {
       <div className="bg-white rounded-2xl shadow-md w-full max-w-lg p-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-1">Share Your Feedback</h1>
         <p className="text-gray-500 mb-6 text-sm">Help us build better products.</p>
+
+        {status === 'success' && (
+          <div className="mb-4 p-3 bg-green-50 text-green-700 rounded-lg text-sm">
+            ✅ Feedback submitted! Thank you.
+          </div>
+        )}
+        {status === 'error' && (
+          <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
+            ❌ Something went wrong. Please try again.
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -94,9 +120,10 @@ export default function SubmitPage() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg text-sm transition-colors"
+            disabled={status === 'loading'}
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg text-sm transition-colors"
           >
-            Submit Feedback
+            {status === 'loading' ? 'Submitting...' : 'Submit Feedback'}
           </button>
         </form>
       </div>
