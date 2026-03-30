@@ -46,22 +46,34 @@ export default function SubmitPage() {
         <h1 className="text-2xl font-bold text-gray-900 mb-1">Share Your Feedback</h1>
         <p className="text-gray-500 mb-6 text-sm">Help us build better products.</p>
 
-        {status === 'success' && (
-          <div className="mb-4 p-3 bg-green-50 text-green-700 rounded-lg text-sm">
-            ✅ Feedback submitted! Thank you.
-          </div>
-        )}
-        {status === 'error' && (
-          <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
-            ❌ Something went wrong. Please try again.
-          </div>
-        )}
+       {status === 'success' && (
+  <div className="mb-4 p-3 bg-green-50 text-green-700 rounded-lg text-sm flex justify-between items-center">
+    <span>✅ Feedback submitted! Thank you.</span>
+    <button
+      onClick={() => setStatus('idle')}
+      className="text-green-700 font-bold px-2 py-0.5 hover:bg-green-100 rounded"
+    >
+      ✕
+    </button>
+  </div>
+)}
+{status === 'error' && (
+  <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm flex justify-between items-center">
+    <span>❌ Something went wrong. Please try again.</span>
+    <button
+      onClick={() => setStatus('idle')}
+      className="text-red-700 font-bold px-2 py-0.5 hover:bg-red-100 rounded"
+    >
+      ✕
+    </button>
+  </div>
+)}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
             <input
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={form.title}
               onChange={e => setForm({ ...form, title: e.target.value })}
               placeholder="Brief summary of your feedback"
@@ -76,7 +88,7 @@ export default function SubmitPage() {
               <span className="text-gray-400">({form.description.length} chars)</span>
             </label>
             <textarea
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
               rows={4}
               value={form.description}
               onChange={e => setForm({ ...form, description: e.target.value })}
@@ -88,7 +100,7 @@ export default function SubmitPage() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Category *</label>
             <select
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={form.category}
               onChange={e => setForm({ ...form, category: e.target.value })}
             >
@@ -100,7 +112,7 @@ export default function SubmitPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Name (optional)</label>
               <input
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-black"
                 value={form.submitterName}
                 onChange={e => setForm({ ...form, submitterName: e.target.value })}
                 placeholder="Your name"
@@ -109,7 +121,7 @@ export default function SubmitPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Email (optional)</label>
               <input
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm text-black"
                 value={form.submitterEmail}
                 onChange={e => setForm({ ...form, submitterEmail: e.target.value })}
                 placeholder="you@example.com"

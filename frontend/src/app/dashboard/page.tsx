@@ -102,7 +102,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-xl shadow-sm p-4 mb-4 flex flex-wrap gap-3">
+        <div className="bg-white rounded-xl shadow-sm p-4 mb-4 flex flex-wrap gap-3 text-black ">
           <input
             className="border rounded-lg px-3 py-2 text-sm flex-1 min-w-[200px]"
             placeholder="Search by keyword..."
@@ -141,9 +141,9 @@ export default function DashboardPage() {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {loading ? (
-                <tr><td colSpan={7} className="text-center py-8 text-gray-400">Loading...</td></tr>
+                <tr><td colSpan={7} className="text-center py-8 text-gray-600">Loading...</td></tr>
               ) : items.length === 0 ? (
-                <tr><td colSpan={7} className="text-center py-8 text-gray-400">No feedback found</td></tr>
+                <tr><td colSpan={7} className="text-center py-8 text-gray-600">No feedback found</td></tr>
               ) : items.map(item => (
                 <tr key={item._id} className="hover:bg-gray-50">
                   <td className="px-4 py-3 font-medium text-gray-900 max-w-[200px] truncate">{item.title}</td>
@@ -153,16 +153,16 @@ export default function DashboardPage() {
                       <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${SENTIMENT_COLORS[item.ai_sentiment] || 'bg-gray-100'}`}>
                         {item.ai_sentiment}
                       </span>
-                    ) : <span className="text-gray-300 text-xs">Pending</span>}
+                    ) : <span className="text-gray-600 text-xs">Pending</span>}
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 text-gray-600">
                     {item.ai_priority ? (
-                      <span className={`font-bold ${item.ai_priority >= 7 ? 'text-red-500' : item.ai_priority >= 4 ? 'text-yellow-500' : 'text-green-500'}`}>
+                      <span className={`font-bold  ${item.ai_priority >= 7 ? 'text-red-500' : item.ai_priority >= 4 ? 'text-yellow-500' : 'text-green-500'}`}>
                         {item.ai_priority}/10
                       </span>
                     ) : '—'}
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 text-gray-600">
                     <select
                       className="border rounded px-2 py-1 text-xs"
                       value={item.status}
@@ -171,7 +171,7 @@ export default function DashboardPage() {
                       {STATUS_OPTIONS.map(s => <option key={s}>{s}</option>)}
                     </select>
                   </td>
-                  <td className="px-4 py-3 text-gray-400 text-xs">
+                  <td className="px-4 py-3 text-gray-600 text-xs">
                     {new Date(item.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3">
