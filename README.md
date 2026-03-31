@@ -56,7 +56,11 @@ Open http://localhost:3000/dashboard to view the admin panel.
 
 ## Feedback Submission Page
 ![Feedback Form](screenshots/submission.png)
+
+## Login Page
 ![Login Form](screenshots/login.png)
+
+## Admin Dashboard
 ![Admin Dashboard](screenshots/admindashboard.png)
 
 ## What I'd Build Next
