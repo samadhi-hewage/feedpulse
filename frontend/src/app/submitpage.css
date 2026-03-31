@@ -1,0 +1,244 @@
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Root ── */
+.sp-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: #0a0b0f;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Ambient orbs ── */
+.sp-root::before,
+.sp-root::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.sp-root::before {
+  width: 600px; height: 600px;
+  top: -200px; left: -160px;
+  background: radial-gradient(circle, rgba(99,102,241,0.13) 0%, transparent 70%);
+}
+.sp-root::after {
+  width: 500px; height: 500px;
+  bottom: -180px; right: -140px;
+  background: radial-gradient(circle, rgba(34,211,238,0.07) 0%, transparent 70%);
+}
+
+/* ── Grid texture ── */
+.sp-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+}
+
+/* ── Card ── */
+.sp-card {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 520px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 20px;
+  padding: 40px 36px;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 40px 80px rgba(0,0,0,0.5);
+  animation: sp-rise 0.55s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* Top accent line */
+.sp-card::before {
+  content: '';
+  position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.7), transparent);
+  border-radius: 999px;
+}
+
+@keyframes sp-rise {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* ── Wordmark ── */
+.sp-wordmark {
+  font-weight: 800; font-size: 18px; letter-spacing: -0.3px;
+  background: linear-gradient(135deg, #c7d2fe 0%, #818cf8 50%, #6366f1 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  margin-bottom: 24px;
+}
+.sp-wordmark span { -webkit-text-fill-color: rgba(255,255,255,0.3); }
+
+/* ── Heading ── */
+.sp-heading {
+  font-weight: 700; font-size: 24px; letter-spacing: -0.4px;
+  color: #f1f5f9; line-height: 1.15; margin-bottom: 5px;
+  animation: sp-rise 0.6s 0.05s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.sp-sub {
+  font-size: 13px; color: rgba(255,255,255,0.35);
+  margin-bottom: 28px; line-height: 1.5;
+  animation: sp-rise 0.6s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ── Banners ── */
+.sp-banner {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 11px 14px; border-radius: 10px; font-size: 13px;
+  margin-bottom: 20px;
+}
+.sp-banner.success {
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.25);
+  color: #86efac;
+  animation: sp-shake-in 0.3s ease;
+}
+.sp-banner.error {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.25);
+  color: #fca5a5;
+  animation: sp-shake 0.35s ease;
+}
+
+.sp-banner-close {
+  background: transparent; border: none; cursor: pointer;
+  color: inherit; font-size: 14px; opacity: 0.6; padding: 2px 6px;
+  border-radius: 5px; transition: opacity 0.2s, background 0.2s; flex-shrink: 0;
+}
+.sp-banner-close:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+
+@keyframes sp-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-5px); }
+  40%       { transform: translateX(5px); }
+  60%       { transform: translateX(-3px); }
+  80%       { transform: translateX(3px); }
+}
+@keyframes sp-shake-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Form ── */
+.sp-form { display: flex; flex-direction: column; gap: 18px; }
+
+/* ── Field ── */
+.sp-field { display: flex; flex-direction: column; gap: 7px; }
+
+.sp-label {
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  display: flex; align-items: center; gap: 6px;
+}
+
+.sp-char-count {
+  font-size: 11px; font-weight: 400;
+  color: rgba(255,255,255,0.2); text-transform: none; letter-spacing: 0;
+}
+
+/* ── Inputs / Textarea / Select ── */
+.sp-input,
+.sp-textarea,
+.sp-select {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: #f1f5f9; font-size: 14px;
+  border-radius: 11px; padding: 11px 14px; outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+.sp-input::placeholder,
+.sp-textarea::placeholder { color: rgba(255,255,255,0.2); }
+.sp-input:focus,
+.sp-textarea:focus,
+.sp-select:focus {
+  border-color: rgba(99,102,241,0.55);
+  background: rgba(99,102,241,0.07);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+
+.sp-textarea { resize: none; line-height: 1.55; }
+
+.sp-select {
+  cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='rgba(255,255,255,0.3)' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+  background-color: rgba(255,255,255,0.05);
+  padding-right: 34px;
+}
+.sp-select option { background: #1a1b22; color: #e2e8f0; }
+
+/* ── Two-column grid ── */
+.sp-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* ── Field error ── */
+.sp-field-error {
+  font-size: 12px; color: #f87171; margin-top: 2px;
+  display: flex; align-items: center; gap: 4px;
+}
+.sp-field-error::before { content: '⚠'; font-size: 11px; }
+
+/* ── Submit button ── */
+.sp-btn {
+  margin-top: 4px; width: 100%;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  border: none; border-radius: 11px;
+  color: #fff; font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
+  padding: 13px; cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+  box-shadow: 0 4px 20px rgba(99,102,241,0.35);
+  font-family: inherit;
+}
+.sp-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 100%);
+  pointer-events: none;
+}
+.sp-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(99,102,241,0.45);
+}
+.sp-btn:active:not(:disabled) { transform: translateY(0); }
+.sp-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── Spinner ── */
+.sp-spinner {
+  display: inline-block; width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff; border-radius: 50%;
+  animation: sp-spin 0.7s linear infinite;
+  margin-right: 8px; vertical-align: middle;
+}
+@keyframes sp-spin { to { transform: rotate(360deg); } }
+
+/* ── Footer ── */
+.sp-footer {
+  text-align: center; margin-top: 20px;
+  font-size: 12px; color: rgba(255,255,255,0.18); letter-spacing: 0.03em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .sp-card  { padding: 32px 22px; }
+  .sp-grid-2 { grid-template-columns: 1fr; }
+  .sp-heading { font-size: 21px; }
+}

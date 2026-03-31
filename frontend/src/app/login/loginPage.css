@@ -1,0 +1,216 @@
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Root ── */
+.lp-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0b0f;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  color: #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Ambient background orbs ── */
+.lp-root::before,
+.lp-root::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.lp-root::before {
+  width: 600px; height: 600px;
+  top: -180px; left: -160px;
+  background: radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%);
+}
+.lp-root::after {
+  width: 500px; height: 500px;
+  bottom: -160px; right: -140px;
+  background: radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 70%);
+}
+
+/* ── Grid texture overlay ── */
+.lp-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* ── Card ── */
+.lp-card {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 400px;
+  margin: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 20px;
+  padding: 40px 36px;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 40px 80px rgba(0,0,0,0.5);
+
+  /* Entry animation */
+  animation: lp-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes lp-rise {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* Top accent line */
+.lp-card::before {
+  content: '';
+  position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.7), transparent);
+  border-radius: 999px;
+}
+
+/* ── Wordmark ── */
+.lp-wordmark {
+  font-weight: 800; font-size: 20px; letter-spacing: -0.4px;
+  background: linear-gradient(135deg, #c7d2fe 0%, #818cf8 50%, #6366f1 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 28px;
+  display: inline-block;
+}
+.lp-wordmark span { -webkit-text-fill-color: rgba(255,255,255,0.3); }
+
+/* ── Heading block ── */
+.lp-heading {
+  font-weight: 700; font-size: 26px; letter-spacing: -0.4px;
+  color: #f1f5f9; line-height: 1.15;
+  margin-bottom: 6px;
+
+  animation: lp-rise 0.6s 0.05s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.lp-sub {
+  font-size: 13px; color: rgba(255,255,255,0.35);
+  margin-bottom: 30px; line-height: 1.5;
+
+  animation: lp-rise 0.6s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Error banner ── */
+.lp-error {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.25);
+  color: #fca5a5; font-size: 13px;
+  padding: 10px 14px; border-radius: 10px;
+  margin-bottom: 20px;
+  animation: lp-shake 0.35s ease;
+}
+.lp-error::before { content: '⚠'; font-size: 14px; flex-shrink: 0; }
+
+@keyframes lp-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-5px); }
+  40%       { transform: translateX(5px); }
+  60%       { transform: translateX(-3px); }
+  80%       { transform: translateX(3px); }
+}
+
+/* ── Form ── */
+.lp-form { display: flex; flex-direction: column; gap: 18px; }
+
+/* ── Field ── */
+.lp-field { display: flex; flex-direction: column; gap: 7px; }
+
+.lp-label {
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.lp-input-wrap { position: relative; }
+
+.lp-input-icon {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: rgba(255,255,255,0.2); font-size: 15px; pointer-events: none;
+  transition: color 0.2s;
+}
+
+.lp-input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: #f1f5f9;
+  font-size: 14px;
+  border-radius: 11px;
+  padding: 11px 14px 11px 42px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.lp-input::placeholder { color: rgba(255,255,255,0.2); }
+.lp-input:focus {
+  border-color: rgba(99,102,241,0.55);
+  background: rgba(99,102,241,0.07);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+.lp-input:focus + .lp-input-icon,
+.lp-input-wrap:focus-within .lp-input-icon {
+  color: rgba(99,102,241,0.7);
+}
+
+/* ── Submit button ── */
+.lp-btn {
+  margin-top: 6px;
+  width: 100%;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  border: none; border-radius: 11px;
+  color: #fff;
+  font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
+  padding: 13px;
+  cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+  box-shadow: 0 4px 20px rgba(99,102,241,0.35);
+}
+.lp-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 100%);
+  pointer-events: none;
+}
+.lp-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(99,102,241,0.45);
+}
+.lp-btn:active:not(:disabled) { transform: translateY(0); }
+.lp-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── Spinner inside button ── */
+.lp-spinner {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: lp-spin 0.7s linear infinite;
+  margin-right: 8px; vertical-align: middle;
+}
+@keyframes lp-spin { to { transform: rotate(360deg); } }
+
+/* ── Footer note ── */
+.lp-footer {
+  text-align: center; margin-top: 22px;
+  font-size: 12px; color: rgba(255,255,255,0.2);
+  letter-spacing: 0.03em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .lp-card { padding: 32px 24px; }
+  .lp-heading { font-size: 22px; }
+}

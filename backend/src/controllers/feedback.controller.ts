@@ -106,7 +106,7 @@ export async function getAISummary(req: Request, res: Response) {
     const prompt = `Based on these product feedback summaries from the past 7 days, identify the top 3 themes. Return ONLY valid JSON: {"themes": ["theme 1", "theme 2", "theme 3"], "overview": "one sentence overview"}\n\n${feedbackText}`;
 
 const response = await fetch(
-  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${process.env.GEMINI_API_KEY}`,
+  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
   {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
