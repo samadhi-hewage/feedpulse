@@ -6,12 +6,21 @@ A full-stack app for collecting and analysing product feedback using Google Gemi
 - **Frontend**: Next.js 14, TypeScript, Tailwind CSS
 - **Backend**: Node.js, Express, TypeScript
 - **Database**: MongoDB + Mongoose
-- **AI**: Google Gemini 1.5 Flash
+- **AI**: Google gemini-2.5-flash
 
 ## How to Run Locally
 
 ### Prerequisites
 - Node.js 18+, MongoDB running locally
+
+## Demo Access
+
+### Admin Login
+- URL: http://localhost:3000/login
+- Email: (value from ADMIN_EMAIL in .env)
+- Password: (value from ADMIN_PASSWORD in .env)
+
+> Note: Run `npm run seed` in the backend to create the admin user before logging in.
 
 ### Backend
 ```bash
@@ -47,6 +56,8 @@ Open http://localhost:3000/dashboard to view the admin panel.
 
 ## Feedback Submission Page
 ![Feedback Form](screenshots/submission.png)
+![Login Form](screenshots/login.png)
+![Admin Dashboard](screenshots/admindashboard.png)
 
 ## What I'd Build Next
 - Email notifications when high-priority feedback is submitted
