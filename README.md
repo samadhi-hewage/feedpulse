@@ -63,6 +63,13 @@ Open http://localhost:3000/dashboard to view the admin panel.
 ## Admin Dashboard
 ![Admin Dashboard](screenshots/admindashboard.png)
 
+## Docker Setup
+Docker support is included. Run with:
+```bash
+docker-compose up --build
+```
+> Note: Requires Docker Desktop and Node.js 20+
+
 ## What I'd Build Next
 - Email notifications when high-priority feedback is submitted
 - Public changelog so users can see what was built from their feedback
